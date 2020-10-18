@@ -1,0 +1,16 @@
+<a
+    style="cursor: pointer;"
+    [routerLink]="[index]"
+    routerLinkActive="active" 
+    class="list-group-item clearfix">
+        <div class="float-left">
+            <h5 class="list-gruop-item-heading">{{ article.title }}</h5>
+            <p class="list-group-item-text">{{ article.content | shorten:45 }}</p>
+        </div>
+        <span class="float-right pl-3">
+            <img [src]="article.imagePath" 
+                alt="{{ article.title }}" 
+                class="img-fluid rounded" 
+                style="max-height: 90px;">
+        </span>
+</a>

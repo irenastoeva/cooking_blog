@@ -1,0 +1,27 @@
+<form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" 
+             class="form-control" 
+             id="title"
+             formControlName="title">
+    </div>
+    <div class="form-group">
+        <label for="imagePath">Image URL</label>
+        <input type="text" 
+               class="form-control" 
+               id="imagePath"
+               formControlName="imagePath"
+               #imagePath>
+      </div>
+      <img [src]="imagePath.value" alt="" class="img-fluid">
+    <div class="form-group">
+      <label for="content">Article</label>
+      <textarea class="form-control" 
+                id="content" 
+                rows="15"
+                formControlName="content"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success m-2" [disabled]="!articleForm.valid">Save</button>
+    <button type="submit" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+</form>
