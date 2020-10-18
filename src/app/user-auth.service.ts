@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { Subject, throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 
@@ -15,29 +14,28 @@ interface UserAuthResponseData {
     registered?: boolean;
 }
 
-@Injectable({ providedIn:'root' })
+@Injectable({ providedIn: 'root' })
 export class UserAuthSerivce {
-    user = new Subject<User>();
+    user = new BehaviorSubject<User>(undefined);
 
     constructor(private http: HttpClient,
                 private router: Router) { }
 
     singup(email: string, password: string) {
-        return this.http
-        .post<UserAuthResponseData>(
+        return this.http.post<UserAuthResponseData>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCcHbIm1OZCggxf_6IKpFq38KEzZ77nWBE',
             {
-                email: email,
-                password: password,
+                email,
+                password,
                 returnSecureToken: true
             }
         )
-        .pipe(catchError(this.handleError), 
+        .pipe(catchError(this.handleError),
               tap(resData => {
                 this.handleUserAuth(
-                    resData.email, 
-                    resData.localId, 
-                    resData.idToken, 
+                    resData.email,
+                    resData.localId,
+                    resData.idToken,
                     +resData.expiresIn);
             })
         );
@@ -49,17 +47,17 @@ export class UserAuthSerivce {
         .post<UserAuthResponseData>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCcHbIm1OZCggxf_6IKpFq38KEzZ77nWBE',
                 {
-                    email: email,
-                    password: password,
+                    email,
+                    password,
                     returnSecureToken: true
                 }
             )
         .pipe(catchError(this.handleError),
               tap(resData => {
                 this.handleUserAuth(
-                    resData.email, 
-                    resData.localId, 
-                    resData.idToken, 
+                    resData.email,
+                    resData.localId,
+                    resData.idToken,
                     +resData.expiresIn);
 
             })
@@ -75,30 +73,30 @@ export class UserAuthSerivce {
     private handleUserAuth(email: string, userId: string, token: string, expiresIn: number) {
         const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
         const user = new User(
-                email, 
-                userId, 
-                token, 
+                email,
+                userId,
+                token,
                 expirationDate);
         this.user.next(user);
     }
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMessage = 'An unknow error occured!';
-                if (!errorRes.error || !errorRes.error.error) {
+        if (!errorRes.error || !errorRes.error.error) {
                     return throwError(errorMessage);
                 }
-                switch (errorRes.error.error.message) {
+        switch (errorRes.error.error.message) {
                     case 'EMAIL_EXISTS':
                         errorMessage = 'This email already exists!';
                         break;
                     case 'EMAIL_NOT_FOUND':
-                        errorMessage = "This email does not exists!";
+                        errorMessage = 'This email does not exists!';
                         break;
                     case 'INVALID_PASSWORD':
-                        errorMessage = "This password is not valid!";
+                        errorMessage = 'This password is not valid!';
                         break;
                 }
-                return throwError(errorMessage);
+        return throwError(errorMessage);
     }
 
 }

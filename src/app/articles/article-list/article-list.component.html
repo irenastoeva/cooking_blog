@@ -4,9 +4,10 @@
             class="m-1"
             *ngFor="let articleEl of articles; let i = index"
             [article]="articleEl"
-            [index]="i"></app-article-item>
+            [index]="i">
+        </app-article-item>
             <br>
-            <div class="text-center">
+            <div class="text-center" *ngIf="user">
                 <button type="button" class="btn btn-success" (click)="onNewArticle()">Add new article</button>
             </div>
     </div>

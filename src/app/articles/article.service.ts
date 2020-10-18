@@ -34,5 +34,4 @@ export class ArticleService {
         this.articles.splice(index, 1);
         this.articlesChanged.next(this.articles.slice());
     }
-
 }

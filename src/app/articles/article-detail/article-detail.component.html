@@ -6,7 +6,7 @@
              style="max-height: 300px;">
     </div>
 </div>
-<div class="mb-3">
+<div class="mb-3" *ngIf="user">
     <button type="button" class="btn btn-outline-primary btn-sm mr-2" (click)="onEditArticle()">Edit article</button>
     <button type="button" class="btn btn-outline-danger btn-sm mr-2" (click)="onDeleteArticle()">Delete article</button>
 </div>
