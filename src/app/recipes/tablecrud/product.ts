@@ -4,8 +4,8 @@ export interface Product {
     code?:string;
     name?:string;
     description?:string;
-    price?:number;
-    quantity?:number;
+    // price?:number;
+    // quantity?:number;
     inventoryStatus?:string;
     category?:string;
     image?:string;

@@ -5,17 +5,12 @@ import { ProductService } from './product.service';
 
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { UserAuthSerivce } from 'src/app/user-auth.service';
+import { User } from 'src/app/user.model';
 
 @Component({
   selector: 'app-tablecrud',
   templateUrl: './tablecrud.component.html',
-  styles: [`
-        :host ::ng-deep .p-dialog .product-image {
-            width: 150px;
-            margin: 0 auto 2rem auto;
-            display: block;
-        }
-    `],
   styleUrls: ['./tablecrud.component.scss']
 })
 export class TablecrudComponent implements OnInit {
@@ -29,10 +24,31 @@ export class TablecrudComponent implements OnInit {
 
   submitted: boolean;
 
-  constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  user: User;
+
+  constructor(private productService: ProductService, 
+              private messageService: MessageService, 
+              private confirmationService: ConfirmationService,
+              private userService: UserAuthSerivce) { }
 
   ngOnInit() {
       this.productService.getProducts().then(data => this.products = data);
+      this.checkForUserChanges();
+  }
+
+  checkForUserChanges() {
+    this.userService.user.subscribe(
+      (data: User) => this.onSuccessGetUser(data),
+      (err: any) => this.onError(err)
+    );
+  }
+
+  onSuccessGetUser(user: User) {
+    this.user = user;
+  }
+
+  onError(err: any) {
+    console.log('err', err);
   }
 
   openNew() {

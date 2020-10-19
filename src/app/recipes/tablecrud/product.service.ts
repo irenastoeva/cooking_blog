@@ -6,7 +6,7 @@ import { Product } from './product';
 @Injectable()
 export class ProductService {
 
-    status: string[] = ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'];
+    status: string[] = ['EASY RECIPE', 'MEDIUM RECIPE', 'DIFFICULT RECIPE'];
 
     productNames: string[] = [
         "Bamboo Watch", 
