@@ -13,6 +13,26 @@
             background-color: #607D8B;
         }
     }
+
+    .p-button-success {
+        background: #5e8f32 !important;
+        color: #fff !important;
+        border-color: #5e8f32 !important;
+    }
+
+    .p-button-text {
+        border: 1px solid black;
+        &:hover {
+            border: 1px solid black;
+            border-color: black !important;
+        }
+    }
+
+    .p-field-radiobutton label {
+        margin-top: 2px;
+        position: absolute;
+        margin-left: 10px;
+    }
     
     .table-header {
         display: flex;

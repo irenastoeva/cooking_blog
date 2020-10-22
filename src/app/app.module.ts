@@ -22,7 +22,7 @@ import { SignupComponent } from './signup/signup.component';
 import { TablecrudComponent } from './recipes/tablecrud/tablecrud.component';
 import { ProductService } from './recipes/tablecrud/product.service';
 
-import {TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {CalendarModule} from 'primeng/calendar';
 import {SliderModule} from 'primeng/slider';
@@ -68,13 +68,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     BrowserAnimationsModule,
     TableModule,
     CalendarModule,
-		SliderModule,
-		DialogModule,
-		MultiSelectModule,
-		ContextMenuModule,
-		DropdownModule,
-		ButtonModule,
-		ToastModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ButtonModule,
+    ToastModule,
     InputTextModule,
     ProgressBarModule,
     FileUploadModule,
@@ -85,9 +85,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ConfirmDialogModule,
     InputTextareaModule,
     RouterModule.forRoot([
-      {path:'',component: AppComponent}
-
-		])
+      {path: '', component: AppComponent}
+    ])
   ],
   providers: [ArticleService, ProductService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
